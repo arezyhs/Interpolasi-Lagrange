@@ -1,70 +1,67 @@
 # 📊 Studi Kasus: Prediksi Emisi CO₂ dengan Interpolasi Lagrange
 
-Studi kasus ini mengeksplorasi penggunaan **Interpolasi Lagrange** untuk memprediksi emisi CO₂ berdasarkan konsumsi listrik dari bahan bakar fosil. Pada proyek ini, kita akan menggunakan pendekatan interpolasi hingga orde tertentu, yang dapat diatur sesuai keinginan, untuk memprediksi dan mengevaluasi akurasi model pada berbagai orde.
+Dalam studi kasus ini, kita menerapkan **Interpolasi Lagrange** untuk memprediksi emisi CO₂ berdasarkan konsumsi listrik dari bahan bakar fosil. Metode ini membantu kita memahami bagaimana interpolasi polinomial dapat digunakan untuk memperkirakan data di antara titik-titik yang ada.
 
 ## 📌 Langkah-Langkah Implementasi
 
 ### 1️⃣ Data Input
 Dataset yang digunakan adalah:
-- `electricity_data`: Data konsumsi listrik dari bahan bakar fosil dalam satuan TWh.
-- `co2_emission_data`: Data emisi CO₂ terkait dalam satuan kiloton (kt).
+- **`electricity_data`**: Data konsumsi listrik dari bahan bakar fosil dalam satuan TWh.
+- **`co2_emission_data`**: Data emisi CO₂ terkait dalam satuan kiloton (kt).
 
 ### 2️⃣ Fungsi Pembentukan Polinomial Lagrange
-Fungsi `lagrange_polynomial` membentuk polinomial Lagrange **simbolik** menggunakan **SymPy** berdasarkan data yang diberikan. Polinomial ini membantu membentuk fungsi interpolasi untuk estimasi nilai emisi CO₂ pada titik prediksi.
+Fungsi `lagrange_polynomial` digunakan untuk membentuk polinomial Lagrange secara simbolik menggunakan **SymPy** berdasarkan titik data terdekat yang dipilih. Fungsi ini membantu membentuk polinomial interpolasi yang digunakan untuk memprediksi emisi CO₂ pada titik target.
 
 ### 3️⃣ Interpolasi Lagrange
-Fungsi `lagrange_interpolation` digunakan untuk menghitung nilai interpolasi pada titik target tertentu (`x_target`) untuk berbagai orde. Polinomial interpolasi dihitung dari data yang paling mendekati titik target untuk mencapai akurasi yang lebih baik.
+Fungsi `lagrange_interpolation` menghitung nilai interpolasi pada titik target tertentu (`x_target`) untuk berbagai orde. 
+- Dengan memilih titik-titik terdekat sesuai dengan orde interpolasi, hasil prediksi bisa menjadi lebih akurat dan relevan dengan data sekitar titik target.
+  
+### 4️⃣ Evaluasi Prediksi dan Galat
+Untuk setiap orde interpolasi, kita menghitung nilai prediksi pada titik data yang ada dan mengukur galatnya (selisih dengan nilai aktual).
+- Hasil prediksi dan galatnya ditampilkan dalam tabel per orde interpolasi.
+  
+### 5️⃣ Metrik Evaluasi Error
+Untuk setiap orde interpolasi, kita menghitung metrik evaluasi berikut:
+- **Error Relatif**: Persentase rata-rata dari galat relatif.
+- **Korelasi Pearson (R)**: Menunjukkan korelasi antara nilai aktual dan prediksi.
+- **R-Squared**: Koefisien determinasi, menunjukkan seberapa baik model mendekati data.
+- **MAPE**: Mean Absolute Percentage Error, mengukur kesalahan absolut dalam bentuk persentase.
 
-### 4️⃣ Batas Error Lagrange Teoritis (Manual)
-- Fungsi `lagrange_error_bound_manual` menghitung batas error Lagrange secara manual. Batas error ini didasarkan pada turunan ke-(n+1) dari polinomial interpolasi dan produk jarak dari titik target ke setiap titik data terdekat.
-- Turunan dihitung menggunakan metode finite differences (beda hingga) sebagai estimasi dari turunan yang tidak diketahui.
-- Nilai error yang dihasilkan memberikan perkiraan maksimum error yang mungkin terjadi pada setiap orde interpolasi.
-
-### 5️⃣ Evaluasi Error Numerik
-Error numerik dihitung berdasarkan hasil prediksi untuk setiap orde, menggunakan metrik-metrik berikut:
-- **Residual Sum of Squares (RSS)**: Jumlah kuadrat dari selisih antara nilai aktual dan nilai prediksi.
-- **Total Sum of Squares (TSS)**: Variabilitas total data dari rata-rata aktual.
-- **R-squared**: Nilai koefisien determinasi, menunjukkan seberapa baik model menjelaskan variabilitas data.
-- **Mean Absolute Error (MAE)**: Rata-rata selisih absolut antara nilai prediksi dan nilai aktual.
-- **Mean Absolute Percentage Error (MAPE)**: Rata-rata persentase error antara nilai prediksi dan nilai aktual dalam bentuk persen.
-- **Mean Squared Error (MSE)**: Rata-rata kuadrat selisih antara nilai prediksi dan nilai aktual.
-- **Root Mean Squared Error (RMSE)**: Akar kuadrat dari MSE, menunjukkan error rata-rata dalam satuan asli data.
-
-### 6️⃣ Plotting
-Menghasilkan grafik interpolasi untuk setiap orde hingga `max_order`, beserta titik prediksi pada `x_target`. Grafik untuk memvisualisasikan bagaimana model interpolasi mendekati data asli untuk setiap orde.
+### 6️⃣ Visualisasi Hasil Interpolasi
+Kita membuat grafik interpolasi untuk setiap orde hingga batas maksimum yang diatur (`max_order`), beserta titik prediksi pada `x_target` untuk visualisasi yang lebih lengkap.
 
 ## 🔧 Parameter yang Dapat Diatur
-- **`x_target`**: Titik prediksi (misal: 238.91).
-- **`max_order`**: Batas maksimum orde interpolasi yang ingin dihitung (misal: hingga orde 6).
+- **`x_target`**: Titik prediksi (contoh: 210).
+- **`max_order`**: Batas maksimum orde interpolasi yang ingin dihitung (contoh: hingga orde 3).
   
-Mengatur `max_order` untuk menentukan hingga orde berapa interpolasi akan dilakukan dan dievaluasi.
+Pengaturan `max_order` dan `x_target` memudahkan dalam menentukan orde interpolasi dan titik prediksi yang diinginkan.
 
 ## 📈 Hasil dan Output
 
-### 📊 Hasil Prediksi, Batas Error Lagrange, dan Evaluasi Error
-Untuk setiap orde dari 1 hingga `max_order`, hasil prediksi, batas error Lagrange, dan evaluasi error dalam bentuk tabel metrik ditampilkan. Digunakan untuk membandingkan akurasi antar orde dan memahami seberapa baik setiap orde interpolasi dalam mendekati data asli.
+### 📊 Hasil Prediksi dan Galat untuk Setiap Orde
+Untuk setiap orde dari 1 hingga `max_order`, hasil prediksi, galat, dan evaluasi error ditampilkan dalam tabel per orde. Hal ini memudahkan perbandingan antar orde dan memahami seberapa baik interpolasi pada setiap orde dalam mendekati data asli.
 
 ### 📉 Grafik Interpolasi
-Grafik interpolasi menunjukkan:
+Grafik interpolasi menampilkan:
 - **Kurva interpolasi untuk setiap orde** dari 1 hingga `max_order`.
 - **Titik prediksi pada `x_target`** untuk setiap orde, dengan label hasil prediksi.
-- **Titik data asli** untuk visualisasi yang lebih lengkap.
+- **Titik data asli** sebagai acuan untuk visualisasi.
 
 ---
 
 ## 📂 Referensi Fungsi Utama
 - **`lagrange_polynomial(x_values, y_values)`**: Membentuk polinomial Lagrange secara simbolis.
 - **`lagrange_interpolation(x_values, y_values, x_target, order)`**: Menghitung nilai interpolasi untuk titik target dengan orde tertentu.
-- **`lagrange_error_bound_manual(x_values, y_values, x_target, order)`**: Menghitung batas error Lagrange secara manual menggunakan metode finite differences.
+- **Tabel Evaluasi Error**: Memberikan evaluasi metrik error seperti Error Relatif, Korelasi Pearson (R), R-Squared, dan MAPE.
 
 ---
 
 ## 📌 Kesimpulan Studi Kasus
-Studi ini menunjukkan bahwa **Interpolasi Lagrange dapat memberikan prediksi yang akurat pada rentang data** yang ada. Namun, perlu diperhatikan:
-- **Interpolasi Orde Tinggi**: Memberikan akurasi yang lebih baik pada data asli namun cenderung menghasilkan batas error teoritis yang lebih tinggi. Hal ini terjadi karena produk dari perbedaan titik data dan estimasi turunan yang tinggi.
-- **Evaluasi Error Numerik**: Menunjukkan error aktual yang bisa lebih kecil dibandingkan batas error teoritis. Evaluasi ini memberikan gambaran yang lebih praktis mengenai akurasi model.
-- **Pemilihan Orde**: Interpolasi orde lebih rendah sering kali lebih stabil dan cukup akurat untuk data dalam rentang terbatas.
+Studi ini menunjukkan bahwa **Interpolasi Lagrange dapat memberikan estimasi yang baik pada rentang data yang tersedia**. Kesimpulan utama adalah:
+- **Orde yang Lebih Tinggi**: Memberikan hasil yang lebih baik pada data asli tetapi mungkin lebih rentan terhadap osilasi pada interval di luar rentang data.
+- **Evaluasi Metrik Error**: Memberikan gambaran praktis mengenai akurasi model dalam pendekatan interpolasi.
+- **Pemilihan Orde yang Optimal**: Orde lebih rendah sering kali cukup stabil dan dapat memberikan hasil yang baik dalam rentang data terbatas, sementara orde lebih tinggi memberikan ketelitian lebih baik pada data yang ada namun dapat rentan terhadap overfitting.
 
---- 
+---
 
 **Author:** Arezyhs
