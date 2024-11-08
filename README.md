@@ -31,7 +31,7 @@ Error numerik dihitung berdasarkan hasil prediksi untuk setiap orde, menggunakan
 - **Root Mean Squared Error (RMSE)**: Akar kuadrat dari MSE, menunjukkan error rata-rata dalam satuan asli data.
 
 ### 6️⃣ Plotting
-Grafik interpolasi dihasilkan untuk setiap orde hingga `max_order` yang diatur, beserta titik prediksi pada `x_target`. Grafik ini memvisualisasikan bagaimana model interpolasi mendekati data asli untuk setiap orde.
+Menghasilkan grafik interpolasi untuk setiap orde hingga `max_order`, beserta titik prediksi pada `x_target`. Grafik untuk memvisualisasikan bagaimana model interpolasi mendekati data asli untuk setiap orde.
 
 ## 🔧 Parameter yang Dapat Diatur
 - **`x_target`**: Titik prediksi (misal: 238.91).
@@ -42,7 +42,7 @@ Mengatur `max_order` untuk menentukan hingga orde berapa interpolasi akan dilaku
 ## 📈 Hasil dan Output
 
 ### 📊 Hasil Prediksi, Batas Error Lagrange, dan Evaluasi Error
-Untuk setiap orde dari 1 hingga `max_order`, hasil prediksi, batas error Lagrange, dan evaluasi error dalam bentuk tabel metrik ditampilkan. Ini membantu dalam membandingkan akurasi antar orde dan memahami seberapa baik setiap orde interpolasi dalam mendekati data asli.
+Untuk setiap orde dari 1 hingga `max_order`, hasil prediksi, batas error Lagrange, dan evaluasi error dalam bentuk tabel metrik ditampilkan. Digunakan untuk membandingkan akurasi antar orde dan memahami seberapa baik setiap orde interpolasi dalam mendekati data asli.
 
 ### 📉 Grafik Interpolasi
 Grafik interpolasi menunjukkan:
