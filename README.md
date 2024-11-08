@@ -35,7 +35,7 @@ Menghasilkan grafik interpolasi untuk setiap orde hingga `max_order`, beserta ti
 
 ## 🔧 Parameter yang Dapat Diatur
 - **`x_target`**: Titik prediksi (misal: 238.91).
-- **`max_order`**: Batas maksimum orde interpolasi yang ingin dihitung (misal: hingga orde 4).
+- **`max_order`**: Batas maksimum orde interpolasi yang ingin dihitung (misal: hingga orde 6).
   
 Mengatur `max_order` untuk menentukan hingga orde berapa interpolasi akan dilakukan dan dievaluasi.
 
