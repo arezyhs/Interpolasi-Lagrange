@@ -31,7 +31,7 @@ Untuk setiap orde interpolasi, kita menghitung metrik evaluasi berikut:
 Kita membuat grafik interpolasi untuk setiap orde hingga batas maksimum yang diatur (`max_order`), beserta titik prediksi pada `x_target` untuk visualisasi yang lebih lengkap.
 
 ## 🔧 Parameter yang Dapat Diatur
-- **`x_target`**: Titik prediksi (contoh: 210).
+- **`x_target`**: Titik prediksi (contoh: 213).
 - **`max_order`**: Batas maksimum orde interpolasi yang ingin dihitung (contoh: hingga orde 3).
   
 Pengaturan `max_order` dan `x_target` memudahkan dalam menentukan orde interpolasi dan titik prediksi yang diinginkan.
