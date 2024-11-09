@@ -1,71 +1,110 @@
-# 📊 Studi Kasus: Prediksi Emisi CO₂ dengan Interpolasi Lagrange
+# 📘 Dokumentasi Kode: Interpolasi Polinomial Lagrange dengan Python
 
-Dalam studi kasus ini, kita menerapkan **Interpolasi Lagrange** untuk memprediksi emisi CO₂ berdasarkan konsumsi listrik dari bahan bakar fosil. Metode ini memungkinkan kita memperkirakan nilai di antara titik-titik data yang sudah ada menggunakan interpolasi polinomial.
-
-## 📌 Langkah-Langkah Implementasi
-
-### 1️⃣ Data Input
-Dataset yang digunakan adalah:
-- **`electricity_data`**: Data konsumsi listrik dari bahan bakar fosil dalam satuan TWh.
-- **`co2_emission_data`**: Data emisi CO₂ terkait dalam satuan kiloton (kt).
-
-### 2️⃣ Fungsi Pembentukan Polinomial Lagrange
-Fungsi `lagrange_polynomial` membentuk polinomial Lagrange secara simbolik menggunakan **SymPy** berdasarkan titik data terdekat yang dipilih. Fungsi ini membantu membentuk polinomial interpolasi yang digunakan untuk memprediksi emisi CO₂ pada titik target.
-
-### 3️⃣ Interpolasi Lagrange
-Fungsi `lagrange_interpolation` menghitung nilai interpolasi pada titik target tertentu (`x_target`) untuk berbagai orde:
-- Memilih titik-titik terdekat sesuai dengan orde interpolasi untuk mencapai hasil prediksi yang lebih akurat.
-  
-### 4️⃣ Batas Error Lagrange Manual
-Fungsi `lagrange_error_bound_manual` menghitung batas error Lagrange secara manual. Batas error ini didasarkan pada turunan ke-(n+1) dari polinomial interpolasi dan produk jarak dari titik target ke setiap titik data terdekat. Batas error ini memberikan perkiraan maksimum galat untuk setiap orde interpolasi.
-
-### 5️⃣ Evaluasi Prediksi dan Galat
-Untuk setiap orde interpolasi, kita menghitung nilai prediksi pada setiap titik data asli dan mengukur galatnya (selisih dengan nilai aktual).
-- Hasil prediksi dan galat ditampilkan dalam tabel untuk setiap orde interpolasi.
-
-### 6️⃣ Metrik Evaluasi Error
-Untuk setiap orde interpolasi, kita menghitung metrik evaluasi berikut:
-- **Error Relatif (%)**: Rata-rata persentase dari galat relatif.
-- **Korelasi Pearson (R)**: Mengukur korelasi antara nilai aktual dan prediksi.
-- **R-Squared**: Koefisien determinasi yang menunjukkan seberapa baik model menjelaskan variabilitas data.
-- **MAPE (%)**: Mean Absolute Percentage Error, menunjukkan kesalahan absolut dalam bentuk persentase.
-
-### 7️⃣ Visualisasi Hasil Interpolasi
-Grafik interpolasi dibuat untuk setiap orde hingga batas maksimum yang diatur (`max_order`), beserta titik prediksi pada `x_target` untuk memberikan visualisasi yang komprehensif.
-
-## 🔧 Parameter yang Dapat Diatur
-- **`x_target`**: Titik prediksi (contoh: 213).
-- **`max_order`**: Batas maksimum orde interpolasi yang ingin dihitung (contoh: hingga orde 3).
-  
-Pengaturan `max_order` dan `x_target` memungkinkan fleksibilitas dalam menentukan orde interpolasi dan titik prediksi.
-
-## 📈 Hasil dan Output
-
-### 📊 Hasil Prediksi dan Galat untuk Setiap Orde
-Untuk setiap orde dari 1 hingga `max_order`, hasil prediksi, galat, dan evaluasi error ditampilkan dalam tabel per orde. Hal ini memudahkan untuk membandingkan akurasi antar orde dan memahami seberapa baik interpolasi pada setiap orde dalam mendekati data asli.
-
-### 📉 Grafik Interpolasi
-Grafik interpolasi menampilkan:
-- **Kurva interpolasi untuk setiap orde** dari 1 hingga `max_order`.
-- **Titik prediksi pada `x_target`** untuk setiap orde, dengan label hasil prediksi.
-- **Titik data asli** sebagai acuan untuk visualisasi.
+Kode ini mengimplementasikan metode **Interpolasi Polinomial Lagrange** untuk menghitung nilai perkiraan `Y` berdasarkan titik data `X` dan `Y` yang diberikan. Metode ini menghasilkan polinomial Lagrange hingga orde yang ditentukan untuk mendekati nilai pada titik tertentu dengan akurasi yang dapat diukur menggunakan berbagai metrik error.
 
 ---
 
-## 📂 Referensi Fungsi Utama
-- **`lagrange_polynomial(x_values, y_values)`**: Membentuk polinomial Lagrange secara simbolis.
-- **`lagrange_interpolation(x_values, y_values, x_target, order)`**: Menghitung nilai interpolasi untuk titik target dengan orde tertentu.
-- **`lagrange_error_bound_manual(x_values, y_values, x_target, order)`**: Menghitung batas error Lagrange secara manual menggunakan finite differences untuk estimasi turunan.
-- **`calculate_error_metrics(y_actual, y_pred)`**: Menghitung metrik error seperti Error Relatif, Korelasi Pearson (R), R-Squared, dan MAPE.
+## 📌 Fitur Utama Kode
+
+1. **Interpolasi Polinomial Lagrange**: Menghitung polinomial Lagrange untuk titik data yang tersedia.
+2. **Prediksi pada Titik Target**: Memperkirakan nilai `Y` pada titik `X` target berdasarkan orde interpolasi.
+3. **Evaluasi Akurasi Prediksi**: Mengukur akurasi interpolasi dengan metrik error seperti MAPE, MAE, RMSE, dan R-Squared.
+4. **Visualisasi Hasil**: Menampilkan grafik polinomial Lagrange dan titik prediksi pada titik target untuk berbagai orde interpolasi.
+5. **Batas Error Lagrange**: Menghitung batas error teoretis dari interpolasi berdasarkan orde yang dipilih.
 
 ---
 
-## 📌 Kesimpulan Studi Kasus
-Studi ini menunjukkan bahwa **Interpolasi Lagrange dapat memberikan estimasi yang baik pada rentang data yang tersedia**. Beberapa kesimpulan utama adalah:
-- **Interpolasi Orde Tinggi**: Memberikan hasil yang lebih baik pada data asli tetapi mungkin lebih rentan terhadap osilasi pada interval di luar rentang data.
-- **Evaluasi Metrik Error**: Memberikan gambaran praktis mengenai akurasi model dalam pendekatan interpolasi.
-- **Pemilihan Orde yang Optimal**: Interpolasi orde rendah sering kali cukup stabil dan dapat memberikan hasil yang baik dalam rentang data terbatas, sementara orde yang lebih tinggi memberikan ketelitian lebih baik pada data yang ada namun dapat rentan terhadap overfitting.
+## 🔧 Deskripsi Fungsi
+
+### Fungsi `lagrange_polynomial`
+Membentuk polinomial Lagrange secara simbolik menggunakan variabel `x`, `x_values`, dan `y_values`. Fungsi ini mengalikan nilai `Y` setiap titik dengan faktor yang berhubungan dengan jaraknya terhadap titik lainnya untuk membentuk polinomial Lagrange.
+
+- **Parameter**:
+  - `x_values`: Array dari titik data `X`.
+  - `y_values`: Array dari nilai `Y` yang sesuai dengan titik data `X`.
+- **Mengembalikan**:
+  - Polinomial Lagrange dalam bentuk ekspresi simbolik yang diperoleh dari titik-titik `X` dan `Y` yang diberikan.
+
+### Fungsi `lagrange_interpolation`
+Menghasilkan nilai `Y` pada titik target `X` menggunakan polinomial Lagrange dengan orde tertentu.
+
+- **Parameter**:
+  - `x_values`: Array dari titik data `X`.
+  - `y_values`: Array dari nilai `Y` yang sesuai dengan titik data `X`.
+  - `x_target`: Nilai `X` tempat prediksi `Y` ingin dihitung.
+  - `order`: Orde interpolasi yang diinginkan.
+- **Mengembalikan**:
+  - `interpolated_value`: Nilai interpolasi `Y` pada `x_target`.
+  - `lagrange_poly`: Polinomial Lagrange simbolik yang dihasilkan.
+
+### Fungsi `lagrange_error_bound_manual`
+Menghitung batas error untuk interpolasi Lagrange pada titik target `X` untuk suatu orde. Batas error ini berdasarkan turunan dari polinomial dan selisih jarak antara titik target dengan titik data lainnya.
+
+- **Parameter**:
+  - `x_values`: Array dari titik data `X`.
+  - `y_values`: Array dari nilai `Y` yang sesuai dengan titik data `X`.
+  - `x_target`: Titik `X` tempat prediksi `Y` ingin dihitung.
+  - `order`: Orde interpolasi.
+- **Mengembalikan**:
+  - `error_estimate`: Perkiraan batas error maksimum untuk interpolasi Lagrange.
+
+### Fungsi `calculate_error_metrics`
+Menghitung berbagai metrik error antara nilai aktual `Y` dan nilai prediksi `Y` untuk mengevaluasi akurasi interpolasi. Metrik yang dihitung meliputi:
+  - **Error Relatif**: Rata-rata persentase error.
+  - **MAPE** (Mean Absolute Percentage Error): Persentase rata-rata kesalahan absolut.
+  - **MAE** (Mean Absolute Error): Rata-rata kesalahan absolut.
+  - **RMSE** (Root Mean Square Error): Akar kuadrat dari rata-rata kesalahan kuadrat.
+  - **R-Squared**: Koefisien determinasi, mengukur kesesuaian model dengan data.
+
+- **Parameter**:
+  - `y_actual`: Array dari nilai `Y` aktual.
+  - `y_pred`: Array dari nilai `Y` yang diprediksi.
+- **Mengembalikan**:
+  - `error_relatif`, `R`, `R_squared`, `MAPE`, `MAE`, `RMSE`.
 
 ---
 
-**Author:** Arezyhs
+## 🖼️ Visualisasi Hasil
+
+Grafik hasil interpolasi Lagrange menampilkan:
+- **Data asli** dalam bentuk titik oranye.
+- **Polinomial interpolasi** untuk setiap orde yang dipilih dalam bentuk garis kurva.
+- **Titik prediksi** pada `X` target ditampilkan sebagai simbol `x` merah.
+
+Grafik ini memberikan visualisasi mengenai kesesuaian polinomial interpolasi dengan data asli dan titik prediksi.
+
+---
+
+## 📈 Contoh Penggunaan
+
+Untuk menggunakan interpolasi Lagrange dengan kode ini, tentukan:
+1. Array titik data `X` dan `Y`.
+2. Titik target `X` untuk prediksi.
+3. Orde interpolasi yang diinginkan dengan mengubah parameter `set_order`.
+
+Kode akan menampilkan tabel prediksi `Y` dan galat untuk setiap orde, dan grafik visualisasi interpolasi beserta titik prediksi pada titik target.
+
+---
+
+## Contoh Metrik Error untuk Evaluasi Akurasi
+
+| Metrik           | Penjelasan                                                     |
+|------------------|-----------------------------------------------------------------|
+| **Error Relatif**| Rata-rata kesalahan relatif pada prediksi                       |
+| **MAPE**         | Mean Absolute Percentage Error, persentase rata-rata error      |
+| **MAE**          | Mean Absolute Error, rata-rata kesalahan absolut                |
+| **RMSE**         | Root Mean Square Error, pengukuran kesalahan yang sensitif outlier|
+| **R-Squared**    | Mengukur tingkat kesesuaian antara prediksi dan data aktual     |
+
+---
+
+## ⚙️ Konfigurasi Variabel Utama
+
+- **`data_x`**: Array yang berisi data `X`.
+- **`data_y`**: Array yang berisi data `Y`.
+- **`x_target`**: Titik `X` yang ingin diprediksi.
+- **`set_order`**: Mengatur orde interpolasi untuk prediksi (nilai default: 4).
+
+---
+
+Kode ini berguna untuk interpolasi data numerik dengan tingkat akurasi yang dapat disesuaikan. Pengguna dapat memilih orde interpolasi berdasarkan kebutuhan dan jumlah data yang tersedia.
