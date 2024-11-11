@@ -1,6 +1,6 @@
 # 📘 Documentation: Polynomial Lagrange Interpolation for CO₂ Emissions Prediction
 
-This code implements **Lagrange Polynomial Interpolation** to approximate the `Y` value (CO₂ Emission) based on given data points of `X` (Independent variables) and `Y` (Dependent variables). This method constructs Lagrange polynomials up to a specified order to approximate the value at a particular target point with measurable accuracy using various error metrics.
+This code implements **Lagrange Polynomial Interpolation** to approximate the `Y` value (Dependent variables) based on given data points of `X` (Independent variables) and `Y` (Dependent variables). This method constructs Lagrange polynomials up to a specified order to approximate the value at a particular target point with measurable accuracy using various error metrics.
 
 ---
 
